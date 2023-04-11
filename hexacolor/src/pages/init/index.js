@@ -1,153 +1,159 @@
 import React, { useState, useEffect } from "react";
+import "./styles.css";
 
-function Init() {
-  const [colors, setColors] = useState([]);
-  const [currentColor, setCurrentColor] = useState("");
-  const [options, setOptions] = useState([]);
+const COLORS = [
+  "#FF0000",
+  "#00FF00",
+  "#0000FF",
+  "#FFFF00",
+  "#FF00FF",
+  "#00FFFF",
+  "#FFFFFF",
+  "#000000",
+];
+
+const ColorGame = () => {
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
-  const [timeLeft, setTimeLeft] = useState(10);
-  const [gameOver, setGameOver] = useState(false);
   const [currentGame, setCurrentGame] = useState([]);
+  const [currentColor, setCurrentColor] = useState("");
+  const [answerOptions, setAnswerOptions] = useState([]);
+  const [gameState, setGameState] = useState("init");
+  const [countdown, setCountdown] = useState(30);
+  const [answered, setAnswered] = useState(false);
 
   useEffect(() => {
-    generateNewColor();
-  }, []);
-
-  useEffect(() => {
-    if (timeLeft === 0) {
-      setScore(score - 2);
-      generateNewColor();
-    }
-  }, [timeLeft]);
-
-  useEffect(() => {
-    if (score > highScore) {
-      setHighScore(score);
-    }
-  }, [score]);
-
-  function generateNewColor() {
-    const newColor = getRandomColor();
-    setCurrentColor(newColor);
-    const newOptions = getOptions(newColor);
-    setOptions(newOptions);
-    setTimeLeft(10);
-    setGameOver(false);
-    setCurrentGame([]);
-    setScore(0);
-  }
-
-  function getRandomColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-
-  function getOptions(correctColor) {
-    const options = [correctColor];
-    while (options.length < 3) {
-      const newOption = getRandomColor();
-      if (!options.includes(newOption)) {
-        options.push(newOption);
-      }
-    }
-    shuffleArray(options);
-    return options;
-  }
-
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
-
-  function handleClick(option) {
-    if (option === currentColor) {
-      setScore(score + 5);
-      setCurrentGame((prev) => [
-        ...prev,
-        { color: currentColor, correct: true, time: 10 - timeLeft },
-      ]);
-      generateNewColor();
-    } else {
-      setScore(score - 1);
-      setCurrentGame((prev) => [
-        ...prev,
-        { color: option, correct: false, time: 10 - timeLeft },
-      ]);
-      if (score > highScore) {
-        setHighScore(score);
-      }
-      setGameOver(true);
-    }
-  }
-
-  useEffect(() => {
-    if (!gameOver) {
+    if (gameState === "playing") {
       const timer = setTimeout(() => {
-        setTimeLeft((prev) => prev - 1);
+        setCountdown((prevCountdown) => prevCountdown - 1);
       }, 1000);
+      if (countdown === 0) {
+        endGame();
+      }
       return () => clearTimeout(timer);
     }
-  }, [timeLeft, gameOver]);
+  }, [gameState, countdown]);
+
+  const startGame = () => {
+    setScore(0);
+    setCurrentGame([]);
+    setGameState("playing");
+    setCurrentColor(generateColor());
+    setAnswerOptions(generateAnswerOptions());
+  };
+
+  const endGame = () => {
+    setGameState("gameover");
+    setAnswered(true);
+    setHighScore((prevHighScore) => Math.max(prevHighScore, score));
+  };
+
+  const generateColor = () => {
+    const index = Math.floor(Math.random() * COLORS.length);
+    return COLORS[index];
+  };
+
+  const generateAnswerOptions = () => {
+    debugger;
+    const options = [];
+    for (let i = 0; i < 3; i++) {
+      let option = generateColor();
+      while (option === currentColor || options.includes(option)) {
+        option = generateColor();
+      }
+      options.push(option);
+    }
+    options.push(currentColor);
+    return shuffle(options);
+  };
+
+  const shuffle = (array) => {
+    const shuffled = array.sort(() => Math.random() - 0.5);
+    return shuffled;
+  };
+
+  const checkAnswer = (option) => {
+    if (!answered) {
+      setAnswered(true);
+      if (option === currentColor) {
+        setScore((prevScore) => prevScore + 5);
+        setCurrentGame((prevGame) => [
+          ...prevGame,
+          { color: currentColor, isCorrect: true },
+        ]);
+        setCurrentColor(generateColor());
+        setAnswerOptions(generateAnswerOptions());
+        setCountdown(30);
+        setAnswered(false);
+      } else {
+        setScore((prevScore) => Math.max(prevScore - 1, 0));
+        setCurrentGame((prevGame) => [
+          ...prevGame,
+          { color: option, isCorrect: false },
+        ]);
+        endGame();
+      }
+    }
+  };
+
+  const restartGame = () => {
+    setGameState("init");
+    setCountdown(30);
+    setCurrentGame([]);
+  };
+
+  const resetData = () => {
+    setHighScore(0);
+    setCurrentGame([]);
+  };
 
   return (
-    <div className="App">
-      <div className="game">
-        <div className="header">
-          <div className="score">
-            <div className="label">SCORE</div>
-            <div className="value">{score}</div>
-          </div>
-          <div className="high-score">
-            <div className="label">HIGH SCORE</div>
-            <div className="value">{highScore}</div>
-          </div>
-        </div>
-        <div className="options">
-          {options.map((option, index) => (
-            <div
-              className={`option ${
-                gameOver && option === currentColor ? "correct" : ""
-              }`}
-              key={index}
-              onClick={() => handleClick(option)}
-              style={{ backgroundColor: option }}
-            ></div>
-          ))}
-        </div>
-        <div className="timer">{timeLeft}s</div>
-        <div className="current-game">
-          <div className="label">CURRENT/LATEST GAME</div>
-          <div className="game-list">
-            {currentGame.map((game, index) => (
-              <div
-                className={`game-item ${
-                  game.correct ? "correct" : "incorrect"
-                }`}
-                key={index}
-                style={{
-                  backgroundColor: game.color,
-                  animationDelay: `${index * 0.1}s`,
-                }}
-              >
-                {game.correct ? "+" : "-"}
-                <div className="time">{game.time}s</div>
-              </div>
+    <div>
+      <h1>Color Game</h1>
+      <p>Score: {score}</p>
+      <p>High Score: {highScore}</p>
+      <div className="color-grid">
+        {currentGame.map((color, index) => (
+          <div
+            key={index}
+            className={`color-box ${color.isCorrect ? "correct" : "incorrect"}`}
+            style={{ backgroundColor: color.color }}
+          />
+        ))}
+      </div>
+      {gameState === "init" && (
+        <button className="start-button" onClick={startGame}>
+          Start Game
+        </button>
+      )}
+      {gameState === "playing" && (
+        <div>
+          <p>What color is:</p>
+          <h2>{currentColor}</h2>
+          <div className="answer-options">
+            {answerOptions.map((option, index) => (
+              <button key={index} onClick={() => checkAnswer(option)}>
+                {option}
+              </button>
             ))}
           </div>
+          <p>Time Left: {countdown}s</p>
         </div>
-        <div className="new-game">
-          <button onClick={generateNewColor}>New Game</button>
+      )}
+      {gameState === "gameover" && (
+        <div>
+          <h2>Game Over!</h2>
+          <p>Your score: {score}</p>
+          <button className="restart-button" onClick={restartGame}>
+            Restart Game
+          </button>
+          <button className="reset-button" onClick={resetData}>
+            Reset Data
+          </button>
         </div>
-      </div>
+      )}
     </div>
   );
-}
+};
 
-export default Init;
+export default ColorGame;
