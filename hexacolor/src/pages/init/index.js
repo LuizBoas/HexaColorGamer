@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
-
-const COLORS = [
-  "#FF0000",
-  "#00FF00",
-  "#0000FF",
-  "#FFFF00",
-  "#FF00FF",
-  "#00FFFF",
-  "#FFFFFF",
-  "#000000",
-];
+import { COLORS } from "../../constants/colors.js";
 
 const ColorGame = () => {
+  //armazena a pontuação atual do jogador
   const [score, setScore] = useState(0);
+  //armazena a maior pontuação já alcançada
   const [highScore, setHighScore] = useState(0);
+  //armazena um array de objetos com as cores selecionadas e se a seleção foi correta ou não
   const [currentGame, setCurrentGame] = useState([]);
+  //armazena a cor atual que o usuário precisa adivinhar
   const [currentColor, setCurrentColor] = useState("");
+  //armazena as opções de resposta que são geradas aleatoriamente
   const [answerOptions, setAnswerOptions] = useState([]);
+  //armazena o estado atual do jogo
   const [gameState, setGameState] = useState("init");
+  //armazena o tempo restante para o jogo
   const [countdown, setCountdown] = useState(30);
-  const [answered, setAnswered] = useState(false);
 
   useEffect(() => {
     if (gameState === "playing") {
@@ -38,32 +34,35 @@ const ColorGame = () => {
     setScore(0);
     setCurrentGame([]);
     setGameState("playing");
-    setCurrentColor(generateColor());
-    setAnswerOptions(generateAnswerOptions());
+    setCurrentColor(generateColor(true));
   };
 
   const endGame = () => {
     setGameState("gameover");
-    setAnswered(true);
     setHighScore((prevHighScore) => Math.max(prevHighScore, score));
   };
 
-  const generateColor = () => {
-    const index = Math.floor(Math.random() * COLORS.length);
-    return COLORS[index];
+  const generateColor = (booleanAnswerOptions) => {
+    debugger;
+
+    const index = Math.floor(Math.random() * Object.values(COLORS).length);
+    if (booleanAnswerOptions) {
+      setAnswerOptions(generateAnswerOptions(Object.values(COLORS)[index]));
+    }
+    return Object.values(COLORS)[index];
   };
 
-  const generateAnswerOptions = () => {
+  const generateAnswerOptions = (currentColorSelect) => {
     debugger;
     const options = [];
     for (let i = 0; i < 3; i++) {
       let option = generateColor();
-      while (option === currentColor || options.includes(option)) {
+      while (option === currentColorSelect || options.includes(option)) {
         option = generateColor();
       }
       options.push(option);
     }
-    options.push(currentColor);
+    options.push(currentColorSelect);
     return shuffle(options);
   };
 
@@ -73,26 +72,22 @@ const ColorGame = () => {
   };
 
   const checkAnswer = (option) => {
-    if (!answered) {
-      setAnswered(true);
-      if (option === currentColor) {
-        setScore((prevScore) => prevScore + 5);
-        setCurrentGame((prevGame) => [
-          ...prevGame,
-          { color: currentColor, isCorrect: true },
-        ]);
-        setCurrentColor(generateColor());
-        setAnswerOptions(generateAnswerOptions());
-        setCountdown(30);
-        setAnswered(false);
-      } else {
-        setScore((prevScore) => Math.max(prevScore - 1, 0));
-        setCurrentGame((prevGame) => [
-          ...prevGame,
-          { color: option, isCorrect: false },
-        ]);
-        endGame();
-      }
+    debugger;
+    if (option === currentColor) {
+      setScore((prevScore) => prevScore + 5);
+      setCurrentGame((prevGame) => [
+        ...prevGame,
+        { color: currentColor, isCorrect: true },
+      ]);
+      setCurrentColor(generateColor(true));
+      setCountdown(30);
+    } else {
+      setScore((prevScore) => Math.max(prevScore - 1, 0));
+      setCurrentGame((prevGame) => [
+        ...prevGame,
+        { color: option, isCorrect: false },
+      ]);
+      endGame();
     }
   };
 
