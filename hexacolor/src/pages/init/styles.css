@@ -1,26 +1,84 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
+#init-gamer {
+  width: 100%;
+  height: 100%;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+#init-gamer main {
+  margin: 3.2rem auto;
+  width: 100%;
+}
+
+.init-gamer-container {
+  background: var(--color-box-base);
+  border: 1px solid var(--color-primary-light);
+  border-radius: 0.8rem;
+  overflow: hidden;
+}
+
+.init-gamer-container header {
+  display: flex;
+  justify-content: center;
+  background: var(--color-box-base);
+  border: 1px solid var(--color-primary-light);
+  border-radius: 20rem;
+  overflow: hidden;
+  margin: 2rem 5rem 0rem 5rem;
+}
+
+.init-gamer-container header div {
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.init-gamer-container header strong {
+  font-size: 3rem !important;
+  margin-top: 2px;
+  margin-left: 0.5rem;
+  color: var(--color-text-base);
+  font: 700 2.5rem Archivo;
+  display: block;
+  color: var(--color-text-complement);
+}
+
+.init-gamer-container header div {
+  margin-left: 2.4rem;
+}
+
+.init-button-container {
+  display: flex;
+  justify-content: center;
+  margin: 3.2rem 0;
+}
+
+.init-button-container button {
+  width: 40rem;
+  height: 10rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-primary-lighter);
+  font: 700 3rem Archivo;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  color: var(--color-button-text);
+
+  transition: background-color 0.2s;
+  background: var(--color-primary-light);
+}
+
+.init-button-container button:hover {
+  background: var(--color-primary-lighter);
+}
+
+.button-container-img {
+  margin-right: 2.1rem;
 }
 
 h1 {
   font-size: 48px;
-  margin: 0;
-  padding: 20px 0;
-  text-align: center;
-  color: #333;
-}
-
-p {
-  font-size: 24px;
   margin: 0;
   padding: 20px 0;
   text-align: center;
@@ -111,4 +169,16 @@ p {
 .game-over button:hover {
   background-color: #333;
   color: #fff;
+}
+
+@media (min-width: 700px) {
+  #init-gamer {
+    max-width: 100%;
+  }
+
+  #init-gamer main {
+    padding: 3.2rem 0;
+    max-width: 740px;
+    margin: 0 auto;
+  }
 }

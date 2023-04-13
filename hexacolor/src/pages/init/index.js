@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import { COLORS } from "../../constants/colors.js";
+import PageHeader from "../../components/PageHeader/index";
+import { BsBoxArrowInRight } from "react-icons/bs";
+import { MdSportsScore } from "react-icons/md";
+import { GiArcheryTarget } from "react-icons/gi";
+import { BiTimer } from "react-icons/bi";
+import backgroundImage from "../../assets/images/capa.png";
 
-const ColorGame = () => {
+const InitGamer = () => {
   //armazena a pontuação atual do jogador
   const [score, setScore] = useState(0);
   //armazena a maior pontuação já alcançada
@@ -43,8 +49,6 @@ const ColorGame = () => {
   };
 
   const generateColor = (booleanAnswerOptions) => {
-    debugger;
-
     const index = Math.floor(Math.random() * Object.values(COLORS).length);
     if (booleanAnswerOptions) {
       setAnswerOptions(generateAnswerOptions(Object.values(COLORS)[index]));
@@ -53,9 +57,8 @@ const ColorGame = () => {
   };
 
   const generateAnswerOptions = (currentColorSelect) => {
-    debugger;
     const options = [];
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
       let option = generateColor();
       while (option === currentColorSelect || options.includes(option)) {
         option = generateColor();
@@ -72,7 +75,6 @@ const ColorGame = () => {
   };
 
   const checkAnswer = (option) => {
-    debugger;
     if (option === currentColor) {
       setScore((prevScore) => prevScore + 5);
       setCurrentGame((prevGame) => [
@@ -103,52 +105,85 @@ const ColorGame = () => {
   };
 
   return (
-    <div>
-      <h1>Color Game</h1>
-      <p>Score: {score}</p>
-      <p>High Score: {highScore}</p>
-      <div className="color-grid">
-        {currentGame.map((color, index) => (
-          <div
-            key={index}
-            className={`color-box ${color.isCorrect ? "correct" : "incorrect"}`}
-            style={{ backgroundColor: color.color }}
-          />
-        ))}
-      </div>
-      {gameState === "init" && (
-        <button className="start-button" onClick={startGame}>
-          Start Game
-        </button>
-      )}
-      {gameState === "playing" && (
-        <div>
-          <p>What color is:</p>
-          <h2>{currentColor}</h2>
-          <div className="answer-options">
-            {answerOptions.map((option, index) => (
-              <button key={index} onClick={() => checkAnswer(option)}>
-                {option}
-              </button>
-            ))}
-          </div>
-          <p>Time Left: {countdown}s</p>
-        </div>
-      )}
-      {gameState === "gameover" && (
-        <div>
-          <h2>Game Over!</h2>
-          <p>Your score: {score}</p>
-          <button className="restart-button" onClick={restartGame}>
-            Restart Game
-          </button>
-          <button className="reset-button" onClick={resetData}>
-            Reset Data
-          </button>
-        </div>
-      )}
+    <div
+      id="init-gamer"
+      className="container"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
+      <PageHeader title="Você acha que pode identificar todas as cores pelo código hexadecimal? Prove jogando nosso emocionante jogo! ">
+        <main>
+          <article className="init-gamer-container">
+            <header>
+              <div className="header-score">
+                <GiArcheryTarget size={40} color={`var(--color-primary)`} />
+                <strong>{score} pts</strong>
+              </div>
+              <div className="header-time">
+                <BiTimer size={45} color={`var(--color-primary)`} />
+                <strong>{countdown}s</strong>
+              </div>
+              <div className="header-hight-score">
+                <MdSportsScore size={40} color={`var(--color-primary)`} />
+                <strong>{highScore} pts</strong>
+              </div>
+            </header>
+            <div className="color-grid">
+              {currentGame.map((color, index) => (
+                <div
+                  key={index}
+                  className={`color-box ${
+                    color.isCorrect ? "correct" : "incorrect"
+                  }`}
+                  style={{ backgroundColor: color.color }}
+                />
+              ))}
+            </div>
+            <div>
+              {gameState === "init" && (
+                <div className="init-button-container">
+                  <button onClick={startGame}>
+                    <BsBoxArrowInRight
+                      size={40}
+                      className="button-container-img"
+                    />
+                    INICIAR
+                  </button>
+                </div>
+              )}
+              {gameState === "playing" && (
+                <div>
+                  <p>What color is:</p>
+                  <div style={{ backgroundColor: currentColor }}>
+                    <h1>dsdasdsa</h1>
+                  </div>
+                  <h2>{currentColor}</h2>
+                  <div className="answer-options">
+                    {answerOptions.map((option, index) => (
+                      <button key={index} onClick={() => checkAnswer(option)}>
+                        {option}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {gameState === "gameover" && (
+                <div>
+                  <h2>Game Over!</h2>
+                  <p>Your score: {score}</p>
+                  <button className="restart-button" onClick={restartGame}>
+                    Restart Game
+                  </button>
+                  <button className="reset-button" onClick={resetData}>
+                    Reset Data
+                  </button>
+                </div>
+              )}
+            </div>
+          </article>
+        </main>
+      </PageHeader>
     </div>
   );
 };
 
-export default ColorGame;
+export default InitGamer;
