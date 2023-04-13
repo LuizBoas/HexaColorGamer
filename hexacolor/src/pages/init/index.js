@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import "./styles.css";
 import { COLORS } from "../../constants/colors.js";
 import PageHeader from "../../components/PageHeader/index";
 import { BsBoxArrowInRight } from "react-icons/bs";
-import { MdSportsScore } from "react-icons/md";
+import { MdSportsScore, MdOutlineTimerOff } from "react-icons/md";
 import { GiArcheryTarget } from "react-icons/gi";
 import { BiTimer } from "react-icons/bi";
+import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import backgroundImage from "../../assets/images/capa.png";
 
 const InitGamer = () => {
@@ -23,6 +24,8 @@ const InitGamer = () => {
   const [gameState, setGameState] = useState("init");
   //armazena o tempo restante para o jogo
   const [countdown, setCountdown] = useState(30);
+  //armazena a referência para o elemento DOM da div que contém a lista de cores
+  const colorGridRef = useRef(null);
 
   useEffect(() => {
     if (gameState === "playing") {
@@ -35,6 +38,13 @@ const InitGamer = () => {
       return () => clearTimeout(timer);
     }
   }, [gameState, countdown]);
+
+  useLayoutEffect(() => {
+    const colorGrid = colorGridRef.current;
+    const totalWidth = colorGrid.scrollWidth;
+    const viewWidth = colorGrid.clientWidth;
+    colorGrid.scrollLeft = totalWidth - viewWidth;
+  }, [currentGame]);
 
   const startGame = () => {
     setScore(0);
@@ -104,6 +114,35 @@ const InitGamer = () => {
     setCurrentGame([]);
   };
 
+  const getIsCorrectIcon = (iscorrect) => {
+    switch (iscorrect) {
+      case true:
+        return (
+          <AiOutlineCheck
+            color="white"
+            size={40}
+            className="icon-check-is-correct"
+          />
+        );
+      case "teste":
+        return (
+          <MdOutlineTimerOff
+            color="white"
+            size={40}
+            className="icon-check-is-correct"
+          />
+        );
+      default:
+        return (
+          <AiOutlineClose
+            color="white"
+            size={40}
+            className="icon-check-is-correct"
+          />
+        );
+    }
+  };
+
   return (
     <div
       id="init-gamer"
@@ -127,15 +166,15 @@ const InitGamer = () => {
                 <strong>{highScore} pts</strong>
               </div>
             </header>
-            <div className="color-grid">
+            <div className="color-grid" ref={colorGridRef}>
               {currentGame.map((color, index) => (
                 <div
                   key={index}
-                  className={`color-box ${
-                    color.isCorrect ? "correct" : "incorrect"
-                  }`}
+                  className="color-box"
                   style={{ backgroundColor: color.color }}
-                />
+                >
+                  {getIsCorrectIcon(color.isCorrect)}
+                </div>
               ))}
             </div>
             <div>
@@ -152,7 +191,7 @@ const InitGamer = () => {
               )}
               {gameState === "playing" && (
                 <div>
-                  <p>What color is:</p>
+                  <p>Que cor é essa:</p>
                   <div style={{ backgroundColor: currentColor }}>
                     <h1>dsdasdsa</h1>
                   </div>

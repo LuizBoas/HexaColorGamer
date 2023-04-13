@@ -2,7 +2,6 @@ export const COLORS = {
     "Azul royal": "#0C1C8C",
     "Bege": "#F5F5DC",
     "Bordô": "#800000",
-    "Branco": "#FFFFFF",
     "Bronze": "#CD7F32",
     "Cáqui": "#F0E68C",
     "Caramelo": "#FFA07A",
