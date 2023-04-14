@@ -2,18 +2,22 @@ import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import "./styles.css";
 import { COLORS } from "../../constants/colors.js";
 import PageHeader from "../../components/PageHeader/index";
-import { BsBoxArrowInRight } from "react-icons/bs";
 import { MdSportsScore, MdOutlineTimerOff } from "react-icons/md";
 import { GiArcheryTarget } from "react-icons/gi";
 import { BiTimer } from "react-icons/bi";
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import backgroundImage from "../../assets/images/capa.png";
+import hexaAnswerBlack from "../../assets/images/hexaAnswerBlack.png";
+import hexaAnswerWhite from "../../assets/images/hexaAnswerWhite.png";
+import { Link } from "react-router-dom";
 
 const Game = () => {
   //armazena a pontuação atual do jogador
   const [score, setScore] = useState(0);
   //armazena a maior pontuação já alcançada
-  const [highScore, setHighScore] = useState(0);
+  const [highScore, setHighScore] = useState(
+    JSON.parse(localStorage.getItem("highScore") || 0)
+  );
   //armazena um array de objetos com as cores selecionadas e se a seleção foi correta ou não
   const [currentGame, setCurrentGame] = useState([]);
   //armazena a cor atual que o usuário precisa adivinhar
@@ -35,6 +39,7 @@ const Game = () => {
       setCurrentGame([]);
       setGameState("playing");
       setCountdown(30);
+      setLimitSec(20);
       setScore(0);
     }
     if (gameState === "playing") {
@@ -59,9 +64,26 @@ const Game = () => {
     colorGrid.scrollLeft = totalWidth - viewWidth;
   }, [currentGame]);
 
+  const generateColorConstrast = (corFundo) => {
+    const luminosity =
+      (0.2126 * parseInt(corFundo.substring(1, 3), 16) +
+        0.7152 * parseInt(corFundo.substring(3, 5), 16) +
+        0.0722 * parseInt(corFundo.substring(5, 7), 16)) /
+      255;
+    if (luminosity < 0.5) {
+      return "#ffffff"; // cor branca para fundos escuros
+    } else {
+      return "#000000"; // cor preta para fundos claros
+    }
+  };
+
   const endGame = () => {
-    setGameState("gameover");
+    setGameState("endgamer");
     setHighScore((prevHighScore) => Math.max(prevHighScore, score));
+    localStorage.setItem(
+      "highScore",
+      JSON.stringify(Math.max(highScore, score))
+    );
   };
 
   const generateColor = (booleanAnswerOptions) => {
@@ -97,50 +119,63 @@ const Game = () => {
       setScore((prevScore) => prevScore + 5);
       setCurrentGame((prevGame) => [
         ...prevGame,
-        { color: currentColor, isCorrect: true },
+        {
+          color: currentColor,
+          isCorrect: true,
+          colorContrast: generateColorConstrast(currentColor),
+        },
       ]);
     } else if (option === "limiteSec") {
       setScore((prevScore) => prevScore - 2);
       setCurrentGame((prevGame) => [
         ...prevGame,
-        { color: currentColor, isCorrect: "limiteSec" },
+        {
+          color: currentColor,
+          isCorrect: "limiteSec",
+          colorContrast: generateColorConstrast(currentColor),
+        },
       ]);
     } else {
       setScore((prevScore) => prevScore - 1);
       setCurrentGame((prevGame) => [
         ...prevGame,
-        { color: currentColor, isCorrect: false },
+        {
+          color: currentColor,
+          isCorrect: false,
+          colorContrast: generateColorConstrast(currentColor),
+        },
       ]);
     }
   };
 
   const resetData = () => {
-    setHighScore(0);
-    setCurrentGame([]);
+    localStorage.setItem("highScore", JSON.stringify(0));
   };
 
-  const getIsCorrectIcon = (iscorrect) => {
-    switch (iscorrect) {
+  const getIsCorrectIcon = (color) => {
+    switch (color.isCorrect) {
       case true:
         return (
           <AiOutlineCheck
-            color="white"
+            color={color.colorContrast}
             size={40}
             className="icon-check-is-correct"
           />
         );
       case "limiteSec":
+        debugger;
         return (
           <MdOutlineTimerOff
-            color="white"
+            color={color.colorContrast}
             size={40}
             className="icon-check-is-correct"
           />
         );
       default:
+        debugger;
         return (
           <AiOutlineClose
-            color="white"
+            color={color.colorContrast}
             size={40}
             className="icon-check-is-correct"
           />
@@ -156,7 +191,7 @@ const Game = () => {
     >
       <PageHeader title="" visibleIconBack={true}>
         <main>
-          <article className="init-gamer-container">
+          <article className="page-gamer-container">
             <header className="header-icons">
               <div className="header-score">
                 <GiArcheryTarget size={40} color={`var(--color-primary)`} />
@@ -179,7 +214,7 @@ const Game = () => {
                   className="color-box"
                   style={{ backgroundColor: color.color }}
                 >
-                  {getIsCorrectIcon(color.isCorrect)}
+                  {getIsCorrectIcon(color)}
                 </div>
               ))}
             </div>
@@ -187,13 +222,36 @@ const Game = () => {
             <div>
               {gameState === "playing" && (
                 <div>
-                  <div style={{ backgroundColor: currentColor }}>
-                    <h1>Que cor é essa?</h1>
+                  <div
+                    className={"container-answer-img"}
+                    style={{
+                      backgroundColor: currentColor,
+                    }}
+                  >
+                    <img
+                      className={"answer-img"}
+                      src={
+                        generateColorConstrast(currentColor) === "#000000"
+                          ? hexaAnswerBlack
+                          : hexaAnswerWhite
+                      }
+                    />
                   </div>
-                  <h2>{currentColor}</h2>
                   <div className="answer-options">
                     {answerOptions.map((option, index) => (
-                      <button key={index} onClick={() => checkAnswer(option)}>
+                      <button
+                        key={index}
+                        onClick={() => checkAnswer(option)}
+                        onMouseOver={(event) => {
+                          event.target.style.backgroundColor = currentColor;
+                          event.target.style.color =
+                            generateColorConstrast(currentColor);
+                        }}
+                        onMouseOut={(event) => {
+                          event.target.style.backgroundColor = "transparent";
+                          event.target.style.color = "#333";
+                        }}
+                      >
                         {option}
                       </button>
                     ))}
@@ -201,7 +259,7 @@ const Game = () => {
                 </div>
               )}
 
-              {gameState === "gameover" && (
+              {gameState === "endgamer" && (
                 <div>
                   <h2>Game Over!</h2>
                   <p>Your score: {score}</p>
@@ -218,10 +276,10 @@ const Game = () => {
                   Reiniciar
                 </button>
 
-                {gameState === "gameover" && (
-                  <button className="button-foot" onClick={resetData}>
+                {gameState === "endgamer" && (
+                  <Link to="/" className="button-foot" onClick={resetData}>
                     Limpar dados
-                  </button>
+                  </Link>
                 )}
               </div>
             </div>

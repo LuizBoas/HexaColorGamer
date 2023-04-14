@@ -8,14 +8,14 @@
   width: 100%;
 }
 
-.init-gamer-container {
+.page-gamer-container {
   background: var(--color-box-base);
   border: 1px solid var(--color-primary-light);
   border-radius: 0.8rem;
   overflow: hidden;
 }
 
-.init-gamer-container header {
+.page-gamer-container header {
   display: flex;
   justify-content: center;
   background: var(--color-box-base);
@@ -25,13 +25,13 @@
   margin: 2rem 5rem 0rem 5rem;
 }
 
-.init-gamer-container header div {
+.page-gamer-container header div {
   display: flex;
   justify-content: center;
   margin: 1rem;
 }
 
-.init-gamer-container .header-icons div strong {
+.page-gamer-container .header-icons div strong {
   font-size: 3rem !important;
   margin-top: 8px;
   margin-left: 0.5rem;
@@ -41,14 +41,8 @@
   color: var(--color-text-complement);
 }
 
-.init-gamer-container header div {
+.page-gamer-container header div {
   margin-left: 2.4rem;
-}
-
-.button-init-container {
-  display: flex;
-  justify-content: center;
-  margin: 3.2rem 0;
 }
 
 .container-button-foot {
@@ -59,7 +53,6 @@
 
 .container-button-foot .button-foot {
   cursor: pointer;
-  display: inline-block;
   width: 25rem;
   height: 6rem;
   border-radius: 1rem;
@@ -69,6 +62,11 @@
   color: var(--color-button-text);
   transition: background-color 0.2s;
   background: var(--color-primary-darker);
+  text-decoration: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container-button-foot .button-foot:hover {
@@ -80,19 +78,25 @@
   margin-right: 2.1rem;
 }
 
-h1 {
-  font-size: 48px;
-  margin: 0;
-  padding: 20px 0;
-  text-align: center;
-  color: #333;
+.container-answer-img {
+  border-radius: 2rem;
+  border: 2px solid var(--color-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35rem;
+  margin: 0rem 4rem 0rem 4rem;
+  overflow: hidden;
+}
+
+.answer-img {
+  margin: -3rem 0rem -3rem 0rem;
 }
 
 .color-grid {
   display: flex;
   overflow-x: auto;
-  margin: 30px 5% 0px 5%;
-  margin-top: 30px;
+  margin: 30px 5% 15px 5%;
   align-items: center;
 }
 
@@ -145,14 +149,9 @@ h1 {
   font-size: 24px;
   cursor: pointer;
   background-color: #fff;
-  border: 2px solid #333;
+  border: 2px solid var(--color-primary);
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.answer-options button:hover {
-  background-color: #333;
-  color: #fff;
 }
 
 .game-over {
