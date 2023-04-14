@@ -9,7 +9,7 @@ import { BiTimer } from "react-icons/bi";
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import backgroundImage from "../../assets/images/capa.png";
 
-const InitGamer = () => {
+const Game = () => {
   //armazena a pontuação atual do jogador
   const [score, setScore] = useState(0);
   //armazena a maior pontuação já alcançada
@@ -24,16 +24,29 @@ const InitGamer = () => {
   const [gameState, setGameState] = useState("init");
   //armazena o tempo restante para o jogo
   const [countdown, setCountdown] = useState(30);
+  //armazena o tempo restante de 10 segundos que o usuário tem pra responder
+  const [limitSec, setLimitSec] = useState(20);
   //armazena a referência para o elemento DOM da div que contém a lista de cores
   const colorGridRef = useRef(null);
 
   useEffect(() => {
+    if (gameState === "init") {
+      setCurrentColor(generateColor(true));
+      setCurrentGame([]);
+      setGameState("playing");
+      setCountdown(30);
+      setScore(0);
+    }
     if (gameState === "playing") {
       const timer = setTimeout(() => {
         setCountdown((prevCountdown) => prevCountdown - 1);
       }, 1000);
       if (countdown === 0) {
         endGame();
+      }
+      if (countdown === limitSec) {
+        checkAnswer("limiteSec");
+        setLimitSec(limitSec - 10);
       }
       return () => clearTimeout(timer);
     }
@@ -45,13 +58,6 @@ const InitGamer = () => {
     const viewWidth = colorGrid.clientWidth;
     colorGrid.scrollLeft = totalWidth - viewWidth;
   }, [currentGame]);
-
-  const startGame = () => {
-    setScore(0);
-    setCurrentGame([]);
-    setGameState("playing");
-    setCurrentColor(generateColor(true));
-  };
 
   const endGame = () => {
     setGameState("gameover");
@@ -85,28 +91,27 @@ const InitGamer = () => {
   };
 
   const checkAnswer = (option) => {
+    setLimitSec(countdown - 10);
+    setCurrentColor(generateColor(true));
     if (option === currentColor) {
       setScore((prevScore) => prevScore + 5);
       setCurrentGame((prevGame) => [
         ...prevGame,
         { color: currentColor, isCorrect: true },
       ]);
-      setCurrentColor(generateColor(true));
-      setCountdown(30);
-    } else {
-      setScore((prevScore) => Math.max(prevScore - 1, 0));
+    } else if (option === "limiteSec") {
+      setScore((prevScore) => prevScore - 2);
       setCurrentGame((prevGame) => [
         ...prevGame,
-        { color: option, isCorrect: false },
+        { color: currentColor, isCorrect: "limiteSec" },
       ]);
-      endGame();
+    } else {
+      setScore((prevScore) => prevScore - 1);
+      setCurrentGame((prevGame) => [
+        ...prevGame,
+        { color: currentColor, isCorrect: false },
+      ]);
     }
-  };
-
-  const restartGame = () => {
-    setGameState("init");
-    setCountdown(30);
-    setCurrentGame([]);
   };
 
   const resetData = () => {
@@ -124,7 +129,7 @@ const InitGamer = () => {
             className="icon-check-is-correct"
           />
         );
-      case "teste":
+      case "limiteSec":
         return (
           <MdOutlineTimerOff
             color="white"
@@ -149,10 +154,10 @@ const InitGamer = () => {
       className="container"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      <PageHeader title="Você acha que pode identificar todas as cores pelo código hexadecimal? Prove jogando nosso emocionante jogo! ">
+      <PageHeader title="" visibleIconBack={true}>
         <main>
           <article className="init-gamer-container">
-            <header>
+            <header className="header-icons">
               <div className="header-score">
                 <GiArcheryTarget size={40} color={`var(--color-primary)`} />
                 <strong>{score} pts</strong>
@@ -166,6 +171,7 @@ const InitGamer = () => {
                 <strong>{highScore} pts</strong>
               </div>
             </header>
+
             <div className="color-grid" ref={colorGridRef}>
               {currentGame.map((color, index) => (
                 <div
@@ -177,23 +183,12 @@ const InitGamer = () => {
                 </div>
               ))}
             </div>
+
             <div>
-              {gameState === "init" && (
-                <div className="init-button-container">
-                  <button onClick={startGame}>
-                    <BsBoxArrowInRight
-                      size={40}
-                      className="button-container-img"
-                    />
-                    INICIAR
-                  </button>
-                </div>
-              )}
               {gameState === "playing" && (
                 <div>
-                  <p>Que cor é essa:</p>
                   <div style={{ backgroundColor: currentColor }}>
-                    <h1>dsdasdsa</h1>
+                    <h1>Que cor é essa?</h1>
                   </div>
                   <h2>{currentColor}</h2>
                   <div className="answer-options">
@@ -205,18 +200,30 @@ const InitGamer = () => {
                   </div>
                 </div>
               )}
+
               {gameState === "gameover" && (
                 <div>
                   <h2>Game Over!</h2>
                   <p>Your score: {score}</p>
-                  <button className="restart-button" onClick={restartGame}>
-                    Restart Game
-                  </button>
-                  <button className="reset-button" onClick={resetData}>
-                    Reset Data
-                  </button>
                 </div>
               )}
+
+              <div className="container-button-foot">
+                <button
+                  className="button-foot"
+                  onClick={() => {
+                    setGameState("init");
+                  }}
+                >
+                  Reiniciar
+                </button>
+
+                {gameState === "gameover" && (
+                  <button className="button-foot" onClick={resetData}>
+                    Limpar dados
+                  </button>
+                )}
+              </div>
             </div>
           </article>
         </main>
@@ -225,4 +232,4 @@ const InitGamer = () => {
   );
 };
 
-export default InitGamer;
+export default Game;

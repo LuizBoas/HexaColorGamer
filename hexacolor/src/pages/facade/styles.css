@@ -1,57 +1,27 @@
-#init-gamer {
+#page-facade {
   width: 100%;
   height: 100%;
 }
 
-#init-gamer main {
+#page-facade main {
   margin: 3.2rem auto;
   width: 100%;
 }
 
-.init-gamer-container {
+.page-facade-container {
   background: var(--color-box-base);
   border: 1px solid var(--color-primary-light);
   border-radius: 0.8rem;
   overflow: hidden;
 }
 
-.init-gamer-container header {
-  display: flex;
-  justify-content: center;
-  background: var(--color-box-base);
-  border: 1px solid var(--color-primary-light);
-  border-radius: 20rem;
-  overflow: hidden;
-  margin: 2rem 5rem 0rem 5rem;
-}
-
-.init-gamer-container header div {
-  display: flex;
-  justify-content: center;
-  margin: 1rem;
-}
-
-.init-gamer-container header strong {
-  font-size: 3rem !important;
-  margin-top: 2px;
-  margin-left: 0.5rem;
-  color: var(--color-text-base);
-  font: 700 2.5rem Archivo;
-  display: block;
-  color: var(--color-text-complement);
-}
-
-.init-gamer-container header div {
-  margin-left: 2.4rem;
-}
-
-.init-button-container {
+.button-init-container {
   display: flex;
   justify-content: center;
   margin: 3.2rem 0;
 }
 
-.init-button-container button {
+.button-init-container a {
   width: 40rem;
   height: 10rem;
   border-radius: 1rem;
@@ -69,7 +39,7 @@
   background: var(--color-primary-light);
 }
 
-.init-button-container button:hover {
+.button-init-container a:hover {
   background: var(--color-primary-lighter);
 }
 
@@ -77,126 +47,12 @@
   margin-right: 2.1rem;
 }
 
-h1 {
-  font-size: 48px;
-  margin: 0;
-  padding: 20px 0;
-  text-align: center;
-  color: #333;
-}
-
-.color-grid {
-  display: flex;
-  overflow-x: auto;
-  margin: 30px 5% 0px 5%;
-  margin-top: 30px;
-  align-items: center;
-}
-
-.color-grid::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.color-grid::-webkit-scrollbar-track {
-  background: var(---color-scroll-background);
-}
-
-.color-grid::-webkit-scrollbar-thumb {
-  background: var(--color-primary-lighter);
-  border-radius: 6px;
-}
-
-.color-grid::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary);
-}
-
-.color-box {
-  width: 60px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0px 5px 0px 5px;
-  cursor: pointer;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.icon-check-is-correct {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.answer-options {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-
-.answer-options button {
-  width: 150px;
-  height: 50px;
-  margin: 10px;
-  font-size: 24px;
-  cursor: pointer;
-  background-color: #fff;
-  border: 2px solid #333;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.answer-options button:hover {
-  background-color: #333;
-  color: #fff;
-}
-
-.game-over {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
-}
-
-.game-over h2 {
-  font-size: 48px;
-  margin-bottom: 20px;
-  color: #ff0000;
-}
-
-.game-over p {
-  font-size: 24px;
-  margin: 0;
-  padding: 20px 0;
-  text-align: center;
-  color: #333;
-}
-
-.game-over button {
-  width: 150px;
-  height: 50px;
-  margin-top: 20px;
-  font-size: 24px;
-  cursor: pointer;
-  background-color: #fff;
-  border: 2px solid #333;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.game-over button:hover {
-  background-color: #333;
-  color: #fff;
-}
-
 @media (min-width: 700px) {
-  #init-gamer {
+  #page-facade {
     max-width: 100%;
   }
 
-  #init-gamer main {
+  #page-facade main {
     padding: 3.2rem 0;
     max-width: 740px;
     margin: 0 auto;

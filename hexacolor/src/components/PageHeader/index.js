@@ -1,12 +1,31 @@
 import React from "react";
 import Logo from "../../assets/images/logo.png";
 
-import "./styles.css";
+import { AiOutlineRollback } from "react-icons/ai";
 
-const PageHeader = ({ title, children }) => {
+import "./styles.css";
+import { useNavigate } from "react-router-dom";
+
+const PageHeader = ({ title, visibleIconBack, children }) => {
+  const navigate = useNavigate();
+
+  const logoContainerStyle = {
+    paddingTop: visibleIconBack ? "0" : "5%",
+  };
+
   return (
     <header className="page-header">
-      <div className="top-bar-container">
+      {visibleIconBack && (
+        <div className="button-back-container">
+          <button type="button" onClick={() => navigate(-1)}>
+            <AiOutlineRollback
+              size={48}
+              className={"top-bar-container-icon-back"}
+            />
+          </button>
+        </div>
+      )}
+      <div className="logo-container" style={logoContainerStyle}>
         <img src={Logo} alt="HexaColor" />
       </div>
 

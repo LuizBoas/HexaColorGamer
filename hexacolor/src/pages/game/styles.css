@@ -31,9 +31,9 @@
   margin: 1rem;
 }
 
-.init-gamer-container header strong {
+.init-gamer-container .header-icons div strong {
   font-size: 3rem !important;
-  margin-top: 2px;
+  margin-top: 8px;
   margin-left: 0.5rem;
   color: var(--color-text-base);
   font: 700 2.5rem Archivo;
@@ -45,32 +45,35 @@
   margin-left: 2.4rem;
 }
 
-.init-button-container {
+.button-init-container {
   display: flex;
   justify-content: center;
   margin: 3.2rem 0;
 }
 
-.init-button-container button {
-  width: 40rem;
-  height: 10rem;
-  border-radius: 1rem;
-  border: 1px solid var(--color-primary-lighter);
-  font: 700 3rem Archivo;
-
+.container-button-foot {
   display: flex;
-  align-items: center;
   justify-content: center;
-
-  text-decoration: none;
-  color: var(--color-button-text);
-
-  transition: background-color 0.2s;
-  background: var(--color-primary-light);
+  align-items: center;
 }
 
-.init-button-container button:hover {
-  background: var(--color-primary-lighter);
+.container-button-foot .button-foot {
+  cursor: pointer;
+  display: inline-block;
+  width: 25rem;
+  height: 6rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-primary-lighter);
+  font: 500 3rem Archivo;
+  margin: 2rem 1rem 2rem 1rem;
+  color: var(--color-button-text);
+  transition: background-color 0.2s;
+  background: var(--color-primary-darker);
+}
+
+.container-button-foot .button-foot:hover {
+  opacity: 0.6;
+  background: var(--color-primary-darker);
 }
 
 .button-container-img {
