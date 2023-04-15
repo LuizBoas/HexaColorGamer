@@ -6,7 +6,6 @@ import { MdSportsScore, MdOutlineTimerOff } from "react-icons/md";
 import { GiArcheryTarget } from "react-icons/gi";
 import { BiTimer } from "react-icons/bi";
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
-import backgroundImage from "../../assets/images/capa.png";
 import hexaAnswerBlack from "../../assets/images/hexaAnswerBlack.png";
 import hexaAnswerWhite from "../../assets/images/hexaAnswerWhite.png";
 import { Link } from "react-router-dom";
@@ -184,11 +183,7 @@ const Game = () => {
   };
 
   return (
-    <div
-      id="init-gamer"
-      className="container"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
+    <div id="init-gamer" className="container">
       <PageHeader title="" visibleIconBack={true}>
         <main>
           <article className="page-gamer-container">

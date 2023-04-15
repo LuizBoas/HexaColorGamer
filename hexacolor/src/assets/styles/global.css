@@ -9,6 +9,7 @@
   --color-secundary: #1a0b62;
   --color-secundary-dark: #0e0a3d;
   --tertiary-color: #b44d97;
+  --tertiary-color-darker: #921970;
   --color-text-in-primary: #d4c2ff;
   --color-text-complement: #9c98a6;
   --color-text-base: #6a6180;
@@ -30,10 +31,14 @@ hmtl,
 body,
 #root {
   height: 100vh;
+  margin: 0;
 }
 
 body {
-  background: var(--color-background);
+  background-image: url("../images/capa.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 #root {
