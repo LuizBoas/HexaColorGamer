@@ -33,7 +33,7 @@ const Facade = () => {
                 </Link>
               </div>
               <div className="button-tips-container">
-                <Link to="/game">
+                <Link to="/instruction">
                   <HiOutlineBookOpen
                     size={40}
                     className="button-container-img"

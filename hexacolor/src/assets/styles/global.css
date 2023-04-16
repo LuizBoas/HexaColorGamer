@@ -17,6 +17,7 @@
   --color-button-text: #ffffff;
   --color-box-base: #ffffff;
   ---color-scroll-background: #f1f1f1;
+  --color-black: #000000;
 
   font-size: 60%;
 }
@@ -35,7 +36,7 @@ body,
 }
 
 body {
-  background-image: url("../images/capa.png");
+  background-image: url("../images/hexaBackground.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

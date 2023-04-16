@@ -25,27 +25,26 @@
   margin: 11rem 4rem 0rem 4rem;
 }
 
-.page-facade-container .hight-score-container {
+.page-facade-container .text-container {
   position: relative;
   z-index: 2;
-  border-radius: 3rem;
-  border: 2px solid var(--color-primary);
-  font: 700 3rem Archivo;
-  background: none;
 
-  display: flex;
   align-items: center;
   justify-content: center;
-  margin: -10rem 25% 8rem 25%;
+  margin: -37rem 1rem 8rem 1rem;
 }
 
-.page-facade-container .hight-score-container strong {
-  font-size: 2.5rem !important;
-  margin-top: 2px;
-  margin-left: 0.5rem;
-  color: var(--tertiary-color);
-  font: 700 2.5rem Archivo;
-  display: block;
+.page-facade-container .text-container h1 {
+  text-align: center;
+  font: 700 3.5rem Archivo;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.page-facade-container .text-container p {
+  text-align: center;
+  font: 500 2rem Poppins;
+  color: var(--color-black);
 }
 
 .page-facade-container .container-button div {

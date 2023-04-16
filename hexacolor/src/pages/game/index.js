@@ -162,7 +162,6 @@ const Game = () => {
           />
         );
       case "limiteSec":
-        debugger;
         return (
           <MdOutlineTimerOff
             color={color.colorContrast}
@@ -171,7 +170,6 @@ const Game = () => {
           />
         );
       default:
-        debugger;
         return (
           <AiOutlineClose
             color={color.colorContrast}
