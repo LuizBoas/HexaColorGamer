@@ -29,10 +29,10 @@
 
 1. Alteração da barra lateral
 
-#Devido à preocupação com a responsividade da página, decidi que seria melhor usar uma barra centralizada 
-#com um scroll lateral infinito, em vez de #manter a barra lateral com o histórico de cores.
+Devido à preocupação com a responsividade da página, decidi que seria melhor usar uma barra centralizada 
+com um scroll lateral infinito, em vez de #manter a barra lateral com o histórico de cores.
 
 2. Uso de várias páginas
 
-#Com o objetivo de tornar o código mais limpo e a visualização mais agradável, 
-#optei por trabalhar com paginação de telas, seguindo as sugestões do designer.
+Com o objetivo de tornar o código mais limpo e a visualização mais agradável, 
+optei por trabalhar com paginação de telas, seguindo as sugestões do designer.
