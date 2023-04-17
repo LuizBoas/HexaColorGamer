@@ -1,12 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import "./styles.css";
 import PageHeader from "../../components/PageHeader/index";
+import hexaAnimation from "../../assets/images/hexaAnimation.gif";
 import { CiPlay1 } from "react-icons/ci";
 import { HiOutlineBookOpen } from "react-icons/hi";
 import { MdSportsScore } from "react-icons/md";
-import hexaAnimation from "../../assets/images/hexaAnimation.gif";
-import { Link } from "react-router-dom";
 
+// Esse componente renderiza o menu do gamer
 const Facade = () => {
   const highScore = JSON.parse(localStorage.getItem("highScore") || 0);
 

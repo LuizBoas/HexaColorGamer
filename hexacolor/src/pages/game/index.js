@@ -1,15 +1,24 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import { Link } from "react-router-dom";
+
 import "./styles.css";
-import { COLORS } from "../../constants/colors.js";
 import PageHeader from "../../components/PageHeader/index";
-import { MdSportsScore, MdOutlineTimerOff } from "react-icons/md";
+import hexaAnswerBlack from "../../assets/images/hexaAnswerBlack.png";
+import hexaAnswerWhite from "../../assets/images/hexaAnswerWhite.png";
+import { COLORS } from "../../constants/colors.js";
+
+import {
+  MdSportsScore,
+  MdOutlineTimerOff,
+  MdOutlineCleaningServices,
+} from "react-icons/md";
 import { GiArcheryTarget } from "react-icons/gi";
 import { BiTimer } from "react-icons/bi";
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
-import hexaAnswerBlack from "../../assets/images/hexaAnswerBlack.png";
-import hexaAnswerWhite from "../../assets/images/hexaAnswerWhite.png";
-import { Link } from "react-router-dom";
+import { TbReload } from "react-icons/tb";
 
+// Pagina que faz toda lógica do gamer ele tem três estados o estado de init,
+// o playing e o endgamer
 const Game = () => {
   //armazena a pontuação atual do jogador
   const [score, setScore] = useState(0);
@@ -31,7 +40,10 @@ const Game = () => {
   const [limitSec, setLimitSec] = useState(20);
   //armazena a referência para o elemento DOM da div que contém a lista de cores
   const colorGridRef = useRef(null);
+  //armazena a largura inicial da barra em porcentagem
+  const [barWidth, setBarWidth] = useState(100);
 
+  // Atualiza o tempo restante do jogo a cada segundo e verifica se o jogo acabou.
   useEffect(() => {
     if (gameState === "init") {
       setCurrentColor(generateColor(true));
@@ -48,14 +60,20 @@ const Game = () => {
       if (countdown === 0) {
         endGame();
       }
-      if (countdown === limitSec) {
+      if (countdown === limitSec && countdown >= 10) {
         checkAnswer("limiteSec");
         setLimitSec(limitSec - 10);
       }
+      if (countdown === limitSec && countdown < 10) {
+        checkAnswer("limiteSec");
+        setLimitSec(0);
+      }
+
       return () => clearTimeout(timer);
     }
   }, [gameState, countdown]);
 
+  // Configura o layout da lista de cores para sempre rolar para a direita.
   useLayoutEffect(() => {
     const colorGrid = colorGridRef.current;
     const totalWidth = colorGrid.scrollWidth;
@@ -63,6 +81,14 @@ const Game = () => {
     colorGrid.scrollLeft = totalWidth - viewWidth;
   }, [currentGame]);
 
+  // calcula a largura atual da barra com base no tempo restante.
+  useEffect(() => {
+    const percentTimeLeft = (countdown - limitSec) / 10; // porcentagem de tempo restante
+    const newBarWidth = percentTimeLeft * 100; // largura em porcentagem
+    setBarWidth(newBarWidth);
+  }, [countdown]);
+
+  // Gera a cor de contraste com base na cor de fundo para que o texto seja legível.
   const generateColorConstrast = (corFundo) => {
     const luminosity =
       (0.2126 * parseInt(corFundo.substring(1, 3), 16) +
@@ -76,6 +102,7 @@ const Game = () => {
     }
   };
 
+  // Estabelecer quando o gamer acaba se o recorde será alterado ou não
   const endGame = () => {
     setGameState("endgamer");
     setHighScore((prevHighScore) => Math.max(prevHighScore, score));
@@ -85,6 +112,7 @@ const Game = () => {
     );
   };
 
+  // Gera três opções de resposta: uma cor correta e duas cores aleatórias.
   const generateColor = (booleanAnswerOptions) => {
     const index = Math.floor(Math.random() * Object.values(COLORS).length);
     if (booleanAnswerOptions) {
@@ -106,14 +134,28 @@ const Game = () => {
     return shuffle(options);
   };
 
+  // Embaralha um array.
   const shuffle = (array) => {
     const shuffled = array.sort(() => Math.random() - 0.5);
     return shuffled;
   };
 
+  // verifica se a opção escolhida pelo usuário está correta e atualiza a pontuação, as cores, e a largura da barra.
   const checkAnswer = (option) => {
-    setLimitSec(countdown - 10);
-    setCurrentColor(generateColor(true));
+    if (countdown < 10) {
+      setLimitSec(0);
+    } else {
+      setLimitSec(countdown - 10);
+    }
+    let newColor = generateColor(true);
+    while (
+      currentGame.some((game) => game.color === newColor) ||
+      newColor === currentColor
+    ) {
+      newColor = generateColor(true);
+    }
+    setCurrentColor(newColor);
+
     if (option === currentColor) {
       setScore((prevScore) => prevScore + 5);
       setCurrentGame((prevGame) => [
@@ -147,10 +189,13 @@ const Game = () => {
     }
   };
 
+  // A função resetData é responsável por redefinir o valor do highScore armazenado no localStorage para 0
   const resetData = () => {
     localStorage.setItem("highScore", JSON.stringify(0));
   };
 
+  // A função getIsCorrectIcon recebe um objeto color como argumento e retorna um ícone
+  // a partir da color está correta em relaçao a pergunta feita.
   const getIsCorrectIcon = (color) => {
     switch (color.isCorrect) {
       case true:
@@ -180,38 +225,61 @@ const Game = () => {
     }
   };
 
+  const findColorName = (colorHexadecimal) => {
+    for (const key in COLORS) {
+      if (COLORS[key] === colorHexadecimal) {
+        return key;
+      }
+    }
+    return null;
+  };
+
   return (
     <div id="init-gamer" className="container">
       <PageHeader title="" visibleIconBack={true}>
         <main>
           <article className="page-gamer-container">
             <header className="header-icons">
-              <div className="header-score">
+              <div>
                 <GiArcheryTarget size={40} color={`var(--color-primary)`} />
                 <strong>{score} pts</strong>
               </div>
-              <div className="header-time">
+              <div>
                 <BiTimer size={45} color={`var(--color-primary)`} />
                 <strong>{countdown}s</strong>
               </div>
-              <div className="header-hight-score">
+              <div>
                 <MdSportsScore size={40} color={`var(--color-primary)`} />
                 <strong>{highScore} pts</strong>
               </div>
             </header>
 
-            <div className="color-grid" ref={colorGridRef}>
-              {currentGame.map((color, index) => (
-                <div
-                  key={index}
-                  className="color-box"
-                  style={{ backgroundColor: color.color }}
-                >
-                  {getIsCorrectIcon(color)}
-                </div>
-              ))}
+            <div className="container-color-grid">
+              {currentGame.length === 0 && (
+                <div className="color-grid-placeholder"></div>
+              )}
+              <div className="color-grid" ref={colorGridRef}>
+                {currentGame.map((color, index) => (
+                  <div
+                    key={index}
+                    className="color-box"
+                    style={{ backgroundColor: color.color }}
+                    title={findColorName(color.color)}
+                  >
+                    {getIsCorrectIcon(color)}
+                    {color.isCorrect === true && (
+                      <div>
+                        <p
+                          style={{ color: generateColorConstrast(color.color) }}
+                        >
+                          {color.color}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
-
             <div>
               {gameState === "playing" && (
                 <div>
@@ -219,6 +287,7 @@ const Game = () => {
                     className={"container-answer-img"}
                     style={{
                       backgroundColor: currentColor,
+                      position: "relative",
                     }}
                   >
                     <img
@@ -229,6 +298,22 @@ const Game = () => {
                           : hexaAnswerWhite
                       }
                     />
+                    <div
+                      className="countdown-bar-container"
+                      style={{
+                        position: "absolute",
+                        bottom: 0,
+                        left: 0,
+                        width: "100%",
+                      }}
+                    >
+                      <div
+                        className="countdown-bar"
+                        style={{
+                          width: `${barWidth}%`,
+                        }}
+                      ></div>
+                    </div>
                   </div>
                   <div className="answer-options">
                     {answerOptions.map((option, index) => (
@@ -253,9 +338,47 @@ const Game = () => {
               )}
 
               {gameState === "endgamer" && (
-                <div>
-                  <h2>Game Over!</h2>
-                  <p>Your score: {score}</p>
+                <div className="container-end-gamer-text">
+                  <h1>Tempo esgotado!</h1>
+                  {score === highScore && (
+                    <p>
+                      <b>
+                        Parabéns você bateu o recorde!
+                        <br /> Em apenas 30 segundos, você conseguiu fazer{" "}
+                        {score} pontos!
+                      </b>
+                      <br />
+                      Você agora é o novo campeão! Sua determinação valeu a pena
+                      e você bateu o recorde anterior.Continue praticando e
+                      supere a si mesmo agora!
+                    </p>
+                  )}
+                  {highScore > score &&
+                    highScore - score <= 10 &&
+                    score > 0 && (
+                      <p>
+                        <b>
+                          Impressionante! <br /> Em apenas 30 segundos, você
+                          conseguiu fazer {score} pontos!
+                        </b>
+                        <br />
+                        Você está melhorando cada vez mais! Faltou apenas{" "}
+                        {highScore - score} pontos para atingir o recorde atual.
+                        Continue assim e logo alcançará o recorde.
+                      </p>
+                    )}
+                  {((highScore > score && highScore - score > 10) ||
+                    score < 0) && (
+                    <p>
+                      <b>
+                        Em apenas 30 segundos, você conseguiu fazer {score}{" "}
+                        pontos!
+                      </b>
+                      <br />
+                      Não desista! A prática leva à perfeição e tenho certeza de
+                      que você pode superar essa pontuação.
+                    </p>
+                  )}
                 </div>
               )}
 
@@ -266,11 +389,16 @@ const Game = () => {
                     setGameState("init");
                   }}
                 >
+                  <TbReload size={31} className="button-foot-icon" />
                   Reiniciar
                 </button>
 
                 {gameState === "endgamer" && (
                   <Link to="/" className="button-foot" onClick={resetData}>
+                    <MdOutlineCleaningServices
+                      size={31}
+                      className="button-foot-icon"
+                    />
                     Limpar dados
                   </Link>
                 )}

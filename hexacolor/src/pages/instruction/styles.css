@@ -1,60 +1,59 @@
-#page-facade {
+#page-instruction {
   width: 100%;
   height: 100%;
 }
 
-#page-facade main {
+#page-instruction main {
   margin: 3.2rem auto;
   width: 100%;
 }
 
-.page-facade-container {
+.page-instruction-container {
   background: var(--color-box-base);
   border: 1px solid var(--color-primary-light);
   border-radius: 0.8rem;
   overflow: hidden;
 }
 
-.container-img {
+.container-background-img {
   position: relative;
   z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30rem;
+  height: 43rem;
   margin: 11rem 4rem 0rem 4rem;
 }
 
-.page-facade-container .text-container {
+.page-instruction-container .text-container {
   position: relative;
   z-index: 2;
-
   align-items: center;
   justify-content: center;
-  margin: -37rem 1rem 8rem 1rem;
+  margin: -50rem 3.5rem 4.2rem 3.5rem;
 }
 
-.page-facade-container .text-container h1 {
+.page-instruction-container .text-container h1 {
   text-align: center;
   font: 700 3.5rem Archivo;
   color: var(--color-primary);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.page-facade-container .text-container p {
+.page-instruction-container .text-container p {
   text-align: center;
   font: 500 2rem Poppins;
-  color: var(--color-black);
+  color: var(--tertiary-color);
 }
 
-.page-facade-container .container-button div {
+.page-instruction-container .container-button-instruction {
   position: relative;
   z-index: 2;
   display: flex;
   justify-content: center;
 }
 
-.page-facade-container .container-button div a {
+.page-instruction-container .container-button-instruction a {
   width: 40rem;
   height: 9rem;
   border-radius: 1rem;
@@ -67,30 +66,12 @@
   color: var(--color-button-text);
 
   transition: background-color 0.2s;
-}
-
-.button-init-container {
-  margin-top: -7rem;
-}
-
-.button-init-container a {
-  background: var(--color-primary-light);
-}
-
-.button-init-container a:hover {
-  background: var(--color-primary-darker);
-}
-
-.button-tips-container {
   margin-top: 1rem;
   margin-bottom: 3.3rem;
-}
-
-.button-tips-container a {
   background: var(--tertiary-color);
 }
 
-.button-tips-container a:hover {
+.page-instruction-container .container-button-instruction a:hover {
   background: var(--tertiary-color-darker);
 }
 
@@ -99,11 +80,11 @@
 }
 
 @media (min-width: 700px) {
-  #page-facade {
+  #page-instruction {
     max-width: 100%;
   }
 
-  #page-facade main {
+  #page-instruction main {
     padding: 3.2rem 0;
     max-width: 740px;
     margin: 0 auto;

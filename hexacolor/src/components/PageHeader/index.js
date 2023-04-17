@@ -1,14 +1,15 @@
 import React from "react";
 import Logo from "../../assets/images/logo.png";
 
+import "./styles.css";
 import { AiOutlineRollback } from "react-icons/ai";
 
-import "./styles.css";
 import { useNavigate } from "react-router-dom";
 
+// Esse é o compoente de renderização do roda pé do gamer
 const PageHeader = ({ title, visibleIconBack, children }) => {
   const navigate = useNavigate();
-
+  // Definir se o botão de return será visualizado ou não
   const logoContainerStyle = {
     paddingTop: visibleIconBack ? "0" : "5%",
   };

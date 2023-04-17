@@ -1,55 +1,50 @@
 import React from "react";
-import "./styles.css";
-import PageHeader from "../../components/PageHeader/index";
-import { HiOutlineBookOpen } from "react-icons/hi";
-import hexaAnimation from "../../assets/images/hexaAnimationInstruction.gif";
 import { Link } from "react-router-dom";
 
-const Facade = () => {
+import "./styles.css";
+import PageHeader from "../../components/PageHeader/index";
+import hexaAnimation from "../../assets/images/hexaAnimationInstruction.gif";
+import { BsArrowLeftSquare } from "react-icons/bs";
+
+// Esse componente renderiza a página de instução do gamer
+const Instruction = () => {
   return (
-    <div id="page-facade">
-      <PageHeader
-        title="Você acha que pode identificar todas as cores pelo código hexadecimal? Prove jogando nosso emocionante jogo! "
-        visibleIconBack={true}
-      >
+    <div id="page-instruction">
+      <PageHeader title="" visibleIconBack={true}>
         <main>
-          <article className="page-facade-container">
-            <div className={"container-img"}>
-              <img className={"answer-img"} src={hexaAnimation} />
+          <article className="page-instruction-container">
+            <div className={"container-background-img"}>
+              <img className={"background-img"} src={hexaAnimation} />
             </div>
             <div className="text-container">
               <h1>Como o jogo funciona?</h1>
               <p>
-                O jogo consiste em acertar o máximo possível de cores em 30s.
-                Quando o jogo iniciar, uma cor aleatória irá aparecer e para ela
-                deverá aparecer 3 opções de resposta (obrigatoriamente em
-                hexadecimal). Sendo duas incorretas (geradas aleatoriamente), é
-                uma correta. A cada rodada, uma nova cor aparece, e o jogador
-                terá 10s para responder e resultar em ganho ou perda de
-                pontuação:
+                Bem-vindo ao nosso jogo de cores!{" "}
+                <b>
+                  O objetivo é acertar o máximo de cores possível em 30
+                  segundos.
+                </b>
+                <br />
+                Quando o jogo começar, uma cor aleatória aparecerá e você terá{" "}
+                <b>10 segundos</b> para escolher a opção correta (que será
+                exibida em hexadecimal). Existirão duas opções incorretas e uma
+                correta, portanto escolha com sabedoria! Se você não responder a
+                tempo, <b>perderá 2 pontos</b>. Se você responder a tempo, mas
+                escolher a opção errada, <b>perderá 1 ponto</b>. Mas se você
+                responder a tempo e escolher a opção correta,{" "}
+                <b>ganhará 5 pontos!</b>
+                <br />
+                Ao longo do jogo, as cores irão mudar e você terá que ser rápido
+                para escolher a opção correta. Pro fim, Você também poderá ver
+                um histórico das cores referentes à partida atual, que dirá
+                quais você acertou e quais errou.
               </p>
-
-              <ul>
-                <li>Se o jogador não responder a tempo, ele perde 2 pontos.</li>
-                <li>
-                  Se o jogador responder a tempo, mas errado, perderá 1 ponto.
-                </li>
-                <li>
-                  Se o jogador responder a tempo e corretamente, ganhará 5
-                  pontos.
-                </li>
-              </ul>
             </div>
-            <div className="container-button">
-              <div className="button-tips-container">
-                <Link to="/">
-                  <HiOutlineBookOpen
-                    size={40}
-                    className="button-container-img"
-                  />
-                  TELA INICIAL
-                </Link>
-              </div>
+            <div className="container-button-instruction">
+              <Link to="/">
+                <BsArrowLeftSquare size={40} className="button-container-img" />
+                Tela Inicial
+              </Link>
             </div>
           </article>
         </main>
@@ -58,4 +53,4 @@ const Facade = () => {
   );
 };
 
-export default Facade;
+export default Instruction;

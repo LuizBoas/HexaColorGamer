@@ -32,17 +32,35 @@
 }
 
 .page-gamer-container .header-icons div strong {
-  font-size: 3rem !important;
+  font-size: 2.5rem !important;
   margin-top: 8px;
   margin-left: 0.5rem;
-  color: var(--color-text-base);
+  color: var(--tertiary-color);
   font: 700 2.5rem Archivo;
   display: block;
-  color: var(--color-text-complement);
 }
 
 .page-gamer-container header div {
   margin-left: 2.4rem;
+}
+
+.countdown-bar-container {
+  width: 100%;
+  height: 5px;
+  background-color: none;
+}
+
+.countdown-bar {
+  height: 100%;
+  background-color: var(--color-primary);
+  transition: width 0.2s ease-in-out;
+}
+
+.countdown-bar-section {
+  height: 10px;
+  background-color: #fff;
+  position: absolute;
+  bottom: 0;
 }
 
 .container-button-foot {
@@ -79,7 +97,7 @@
 }
 
 .container-answer-img {
-  border-radius: 2rem;
+  border-radius: 0.5rem;
   border: 2px solid var(--color-primary);
   display: flex;
   justify-content: center;
@@ -119,14 +137,36 @@
 }
 
 .color-box {
-  width: 60px;
-  height: 60px;
+  min-width: 70px;
+  min-height: 65px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0px 5px 0px 5px;
   cursor: pointer;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-primary);
+  border-radius: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.color-box div p {
+  text-align: center;
+  font: 500 1.4rem Poppins;
+  position: absolute;
+  z-index: 1;
+  top: 43px;
+  left: -0.1rem;
+  margin-left: 3px;
+}
+
+.color-box {
+  position: relative;
+}
+
+.color-box span {
+  position: absolute;
+  z-index: 2;
 }
 
 .icon-check-is-correct {
@@ -154,43 +194,27 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-.game-over {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
-}
-
-.game-over h2 {
-  font-size: 48px;
-  margin-bottom: 20px;
-  color: #ff0000;
-}
-
-.game-over p {
-  font-size: 24px;
-  margin: 0;
-  padding: 20px 0;
+.container-end-gamer-text h1 {
   text-align: center;
-  color: #333;
+  font: 700 4rem Archivo;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  margin-top: 3rem;
 }
 
-.game-over button {
-  width: 150px;
-  height: 50px;
-  margin-top: 20px;
-  font-size: 24px;
-  cursor: pointer;
-  background-color: #fff;
-  border: 2px solid #333;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+.container-end-gamer-text p {
+  text-align: center;
+  font: 500 2.2rem Poppins;
+  color: var(--tertiary-color);
+  margin: 0rem 1.7rem 4rem 1.7rem;
 }
 
-.game-over button:hover {
-  background-color: #333;
-  color: #fff;
+.button-foot-icon {
+  margin-right: 0.8rem;
+}
+
+.color-grid-placeholder {
+  height: 70px;
 }
 
 @media (min-width: 700px) {
@@ -202,5 +226,10 @@
     padding: 3.2rem 0;
     max-width: 740px;
     margin: 0 auto;
+  }
+
+  .page-gamer-container .header-icons div strong {
+    font-size: 3rem !important;
+    font: 700 2.5rem Archivo;
   }
 }
