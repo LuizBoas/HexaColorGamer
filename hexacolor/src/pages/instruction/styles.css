@@ -1,0 +1,92 @@
+#page-instruction {
+  width: 100%;
+  height: 100%;
+}
+
+#page-instruction main {
+  margin: 3.2rem auto;
+  width: 100%;
+}
+
+.page-instruction-container {
+  background: var(--color-box-base);
+  border: 1px solid var(--color-primary-light);
+  border-radius: 0.8rem;
+  overflow: hidden;
+}
+
+.container-background-img {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 43rem;
+  margin: 11rem 4rem 0rem 4rem;
+}
+
+.page-instruction-container .text-container {
+  position: relative;
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
+  margin: -50rem 3.5rem 4.2rem 3.5rem;
+}
+
+.page-instruction-container .text-container h1 {
+  text-align: center;
+  font: 700 3.5rem Archivo;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.page-instruction-container .text-container p {
+  text-align: center;
+  font: 500 2rem Poppins;
+  color: var(--tertiary-color);
+}
+
+.page-instruction-container .container-button-instruction {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.page-instruction-container .container-button-instruction a {
+  width: 40rem;
+  height: 9rem;
+  border-radius: 1rem;
+  font: 700 3rem Archivo;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--color-button-text);
+
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+  margin-bottom: 3.3rem;
+  background: var(--tertiary-color);
+}
+
+.page-instruction-container .container-button-instruction a:hover {
+  background: var(--tertiary-color-darker);
+}
+
+.button-container-img {
+  margin-right: 1.3rem;
+}
+
+@media (min-width: 700px) {
+  #page-instruction {
+    max-width: 100%;
+  }
+
+  #page-instruction main {
+    padding: 3.2rem 0;
+    max-width: 740px;
+    margin: 0 auto;
+  }
+}

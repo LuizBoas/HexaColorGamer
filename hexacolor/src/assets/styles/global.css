@@ -1,0 +1,68 @@
+:root {
+  --color-background: #f0f0f7;
+  --color-primary-lighter: #9d84d6;
+  --color-primary-light: #916bea;
+  --color-primary: #8257e5;
+  --color-primary-opacity: rgba(130, 87, 229, 0.6);
+  --color-primary-dark: #774dd6;
+  --color-primary-darker: #6842c2;
+  --color-secundary: #1a0b62;
+  --color-secundary-dark: #0e0a3d;
+  --tertiary-color: #b44d97;
+  --tertiary-color-darker: #921970;
+  --color-text-in-primary: #d4c2ff;
+  --color-text-complement: #9c98a6;
+  --color-text-base: #6a6180;
+  --color-input-background: #f8f8fc;
+  --color-button-text: #ffffff;
+  --color-box-base: #ffffff;
+  ---color-scroll-background: #f1f1f1;
+  --color-black: #000000;
+
+  font-size: 60%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+hmtl,
+body,
+#root {
+  height: 100vh;
+  margin: 0;
+}
+
+body {
+  background-image: url("../images/hexaBackground.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body,
+input,
+button,
+textarea {
+  font: 500 1.6rem Poppins;
+  color: var(--color-text-base);
+}
+
+.container {
+  width: 90vw;
+  max-width: 700px;
+}
+
+@media (min-width: 700px) {
+  :root {
+    font-size: 62.5%;
+  }
+}

@@ -1,0 +1,235 @@
+#init-gamer {
+  width: 100%;
+  height: 100%;
+}
+
+#init-gamer main {
+  margin: 3.2rem auto;
+  width: 100%;
+}
+
+.page-gamer-container {
+  background: var(--color-box-base);
+  border: 1px solid var(--color-primary-light);
+  border-radius: 0.8rem;
+  overflow: hidden;
+}
+
+.page-gamer-container header {
+  display: flex;
+  justify-content: center;
+  background: var(--color-box-base);
+  border: 1px solid var(--color-primary-light);
+  border-radius: 20rem;
+  overflow: hidden;
+  margin: 2rem 5rem 0rem 5rem;
+}
+
+.page-gamer-container header div {
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.page-gamer-container .header-icons div strong {
+  font-size: 2.5rem !important;
+  margin-top: 8px;
+  margin-left: 0.5rem;
+  color: var(--tertiary-color);
+  font: 700 2.5rem Archivo;
+  display: block;
+}
+
+.page-gamer-container header div {
+  margin-left: 2.4rem;
+}
+
+.countdown-bar-container {
+  width: 100%;
+  height: 5px;
+  background-color: none;
+}
+
+.countdown-bar {
+  height: 100%;
+  background-color: var(--color-primary);
+  transition: width 0.2s ease-in-out;
+}
+
+.countdown-bar-section {
+  height: 10px;
+  background-color: #fff;
+  position: absolute;
+  bottom: 0;
+}
+
+.container-button-foot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-button-foot .button-foot {
+  cursor: pointer;
+  width: 25rem;
+  height: 6rem;
+  border-radius: 1rem;
+  border: 1px solid var(--color-primary-lighter);
+  font: 500 3rem Archivo;
+  margin: 2rem 1rem 2rem 1rem;
+  color: var(--color-button-text);
+  transition: background-color 0.2s;
+  background: var(--color-primary-darker);
+  text-decoration: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-button-foot .button-foot:hover {
+  opacity: 0.6;
+  background: var(--color-primary-darker);
+}
+
+.button-container-img {
+  margin-right: 2.1rem;
+}
+
+.container-answer-img {
+  border-radius: 0.5rem;
+  border: 2px solid var(--color-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35rem;
+  margin: 0rem 4rem 0rem 4rem;
+  overflow: hidden;
+}
+
+.answer-img {
+  margin: -3rem 0rem -3rem 0rem;
+}
+
+.color-grid {
+  display: flex;
+  overflow-x: auto;
+  margin: 30px 5% 15px 5%;
+  align-items: center;
+}
+
+.color-grid::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.color-grid::-webkit-scrollbar-track {
+  background: var(---color-scroll-background);
+}
+
+.color-grid::-webkit-scrollbar-thumb {
+  background: var(--color-primary-lighter);
+  border-radius: 6px;
+}
+
+.color-grid::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+.color-box {
+  min-width: 70px;
+  min-height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 5px 0px 5px;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-primary);
+  border-radius: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.color-box div p {
+  text-align: center;
+  font: 500 1.4rem Poppins;
+  position: absolute;
+  z-index: 1;
+  top: 43px;
+  left: -0.1rem;
+  margin-left: 3px;
+}
+
+.color-box {
+  position: relative;
+}
+
+.color-box span {
+  position: absolute;
+  z-index: 2;
+}
+
+.icon-check-is-correct {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.answer-options {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.answer-options button {
+  width: 150px;
+  height: 50px;
+  margin: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: #fff;
+  border: 2px solid var(--color-primary);
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.container-end-gamer-text h1 {
+  text-align: center;
+  font: 700 4rem Archivo;
+  color: var(--color-primary);
+  margin-bottom: 1.5rem;
+  margin-top: 3rem;
+}
+
+.container-end-gamer-text p {
+  text-align: center;
+  font: 500 2.2rem Poppins;
+  color: var(--tertiary-color);
+  margin: 0rem 1.7rem 4rem 1.7rem;
+}
+
+.button-foot-icon {
+  margin-right: 0.8rem;
+}
+
+.color-grid-placeholder {
+  height: 70px;
+}
+
+@media (min-width: 700px) {
+  #init-gamer {
+    max-width: 100%;
+  }
+
+  #init-gamer main {
+    padding: 3.2rem 0;
+    max-width: 740px;
+    margin: 0 auto;
+  }
+
+  .page-gamer-container .header-icons div strong {
+    font-size: 3rem !important;
+    font: 700 2.5rem Archivo;
+  }
+}

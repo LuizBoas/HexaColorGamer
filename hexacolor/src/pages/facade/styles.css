@@ -1,0 +1,112 @@
+#page-facade {
+  width: 100%;
+  height: 100%;
+}
+
+#page-facade main {
+  margin: 3.2rem auto;
+  width: 100%;
+}
+
+.page-facade-container {
+  background: var(--color-box-base);
+  border: 1px solid var(--color-primary-light);
+  border-radius: 0.8rem;
+  overflow: hidden;
+}
+
+.container-img {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30rem;
+  margin: 11rem 4rem 0rem 4rem;
+}
+
+.page-facade-container .hight-score-container {
+  position: relative;
+  z-index: 2;
+  border-radius: 3rem;
+  border: 2px solid var(--color-primary);
+  font: 700 3rem Archivo;
+  background: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: -10rem 25% 8rem 25%;
+}
+
+.page-facade-container .hight-score-container strong {
+  font-size: 2.5rem !important;
+  margin-top: 2px;
+  margin-left: 0.5rem;
+  color: var(--tertiary-color);
+  font: 700 2.5rem Archivo;
+  display: block;
+}
+
+.page-facade-container .container-button div {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.page-facade-container .container-button div a {
+  width: 40rem;
+  height: 9rem;
+  border-radius: 1rem;
+  font: 700 3rem Archivo;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--color-button-text);
+
+  transition: background-color 0.2s;
+}
+
+.button-init-container {
+  margin-top: -7rem;
+}
+
+.button-init-container a {
+  background: var(--color-primary-light);
+}
+
+.button-init-container a:hover {
+  background: var(--color-primary-darker);
+}
+
+.button-tips-container {
+  margin-top: 1rem;
+  margin-bottom: 3.3rem;
+}
+
+.button-tips-container a {
+  background: var(--tertiary-color);
+}
+
+.button-tips-container a:hover {
+  background: var(--tertiary-color-darker);
+}
+
+.button-container-img {
+  margin-right: 1.3rem;
+}
+
+@media (min-width: 700px) {
+  #page-facade {
+    max-width: 100%;
+  }
+
+  #page-facade main {
+    padding: 3.2rem 0;
+    max-width: 740px;
+    margin: 0 auto;
+  }
+}
