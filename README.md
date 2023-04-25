@@ -1,7 +1,6 @@
 ## :rocket: Tecnologias
 
 - [ReactJS](https://reactjs.org/)
-- [axios](https://github.com/axios/axios)
 
 ## :boom: Como Executar
 
