@@ -1,3 +1,9 @@
+## HexaColorGamer 
+
+O HexaColorGamer é um jogo emocionante que desafia os jogadores a acertarem o maior número possível de cores em apenas 30 segundos. Ao iniciar o jogo, uma cor aleatória será exibida, juntamente com três opções de resposta, todas em formato hexadecimal. Duas das opções são incorretas, geradas aleatoriamente, enquanto a terceira é a correta. O jogador tem apenas 10 segundos para responder e ganhar ou perder pontos. Se não responder a tempo, perde 2 pontos. Se responder corretamente, ganha 5 pontos, mas se responder incorretamente, perde 1 ponto.
+
+O jogo mantém um histórico visual das cores respondidas, indicando quais foram acertadas, quais foram erradas e o tempo de resposta. A pontuação da partida atual e o recorde de pontuação mais alta também são exibidos para manter o jogador motivado e desafiado. O HexaColorGamer é uma ótima opção para quem busca um jogo simples, mas desafiador, que testa a velocidade de raciocínio e conhecimento sobre cores em formato hexadecimal.
+
 ## :rocket: Tecnologias
 
 - [ReactJS](https://reactjs.org/)
